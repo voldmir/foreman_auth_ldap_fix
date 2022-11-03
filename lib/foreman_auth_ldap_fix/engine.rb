@@ -19,6 +19,22 @@ module ForemanAuthLdapFix
     initializer "foreman_auth_ldap_fix.register_plugin", :before => :finisher_hook do |_app|
       Foreman::Plugin.register :foreman_auth_ldap_fix do
         requires_foreman "~> 1.24"
+
+        unless SETTINGS[:unattended]
+          delete_menu_item :top_menu, :newhost
+          delete_menu_item :top_menu, :hosts
+
+          menu :top_menu,
+               :hosts,
+               caption: N_("All"),
+               parent: :hosts_menu
+
+          menu :top_menu,
+               :operatingsystems,
+               caption: N_("Operating Systems"),
+               parent: :configure_menu,
+               after: :common_parameters
+        end
       end
     end
 
