@@ -27,3 +27,9 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/foreman_auth_ldap_fix.
+
+
+| Foreman Version | Plugin Version |
+| --------------- | -------------: |
+| ~> 1.24         |          0.1.1 |
+| ~> 1.24         |          0.1.2 |

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ForemanAuthLdapFix
   module AuthSourceLdapExt
     extend ActiveSupport::Concern
@@ -20,8 +22,8 @@ module ForemanAuthLdapFix
 
       # User's external user groups as of auth_source
       usergroup_ids = ExternalUsergroup.where(auth_source_id: id)
-        .where(group_name_arel.in(external))
-        .pluck(:usergroup_id)
+                                       .where(group_name_arel.in(external))
+                                       .pluck(:usergroup_id)
 
       new_usergroup_ids = Usergroup.where(id: usergroup_ids.uniq).pluck(:id)
       current_usergroup_ids = user.usergroups.pluck(:id)
@@ -31,7 +33,7 @@ module ForemanAuthLdapFix
       current_organization_ids = user.organization_ids
       new_organization_ids = user.usergroups.map do |usergroup|
         usergroup.roles.map do |role|
-          role.organizations.map { |organization| organization.id }
+          role.organizations.map(&:id)
         end
       end.flatten.uniq
 
